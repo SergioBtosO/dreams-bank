@@ -26,6 +26,7 @@ class UsersDao {
         log('Created new instance of UsersDao');
     }
 
+    //create
     async addUser(userFields: CreateUserDto) {
         const userId = shortid.generate();
         const user = new this.User({
@@ -36,6 +37,7 @@ class UsersDao {
         return userId;
     }
 
+    //read
     async getUsers(limit = 25, page = 0) {
         return this.User.find()
             .limit(limit)
@@ -43,16 +45,22 @@ class UsersDao {
             .exec();
     }
     
+    async getUserById(userId: string) {
+        return this.User.findOne({ _id: userId }).populate('User').exec();
+    }
     
     async getUserByIdentification(identification: string) {
         return this.User.findOne({ identification }).exec();
     }
     
-    async getUserById(userId: string) {
-        return this.User.findOne({ _id: userId }).populate('User').exec();
-    }
     
+    async getUserByIdentificationWithPassword(identification: string) {
+        return this.User.findOne({ identification })
+            .select('_id identification +password')
+            .exec();
+    }
 
+    //update
     async updateUserById(
         userId: string,
         userFields: PatchUserDto | PutUserDto
@@ -66,6 +74,7 @@ class UsersDao {
         return existingUser;
     }
 
+    //delete
     async removeUserById(userId: string) {
         return this.User.deleteOne({ _id: userId }).exec();
     }
