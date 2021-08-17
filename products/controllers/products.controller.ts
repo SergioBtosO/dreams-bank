@@ -1,7 +1,6 @@
 import express from 'express';
 import usersService from '../../users/services/users.service';
 import productsService from '../services/products.services';
-import argon2 from 'argon2';
 import debug from 'debug';
 
 const log: debug.IDebugger = debug('app:productss-controller');
@@ -31,7 +30,7 @@ class ProductsController {
     }
 
     async put(req: express.Request, res: express.Response) {
-        req.body.password = await argon2.hash(req.body.password);
+       
         log(await usersService.putById(req.body.id, req.body));
         res.status(204).send();
     }

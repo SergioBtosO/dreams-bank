@@ -22,7 +22,8 @@ class UsersDao {
             ref: "Products",
             type: String
         }],
-    }, { id: false });
+    }, { id: false,
+        timestamps: true });
 
     User = mongooseService.getMongoose().model('Users', this.userSchema);
 

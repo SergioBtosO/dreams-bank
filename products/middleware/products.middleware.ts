@@ -11,8 +11,8 @@ class ProductsMiddleware {
         res: express.Response,
         next: express.NextFunction
     ) {
-        const user = await userService.readById(req.body.Owner);
-        if (user && user._id === req.body.Owner) {
+        const user = await userService.readById(req.body.owner);
+        if (user && user._id === req.body.owner) {
             next();
         } else {
             res.status(400).send({ error: `Invalid Owner` });

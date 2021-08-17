@@ -20,11 +20,14 @@ class ProductsDao{
             ref: "Users",
             type: String
         },
-        trasactions:[{
-            transactionId:String
+        transactions:[{
+            ref: "Transactions",
+            type: String
         }],
         openDate: { type: Date, default: Date.now },
-    }, { id: false });
+    }, { 
+        id: false ,
+        timestamps: true});
 
     Product = mongooseService.getMongoose().model('Products', this.productSchema);
 

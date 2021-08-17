@@ -16,6 +16,7 @@ import {CommonRoutesConfig} from './common/common.routes.config';
 import {UsersRoutes} from './users/users.routes.config';
 import {AuthRoutes} from './auth/auth.routes.config';
 import {ProductsRoutes} from './products/products.routes.config';
+import {TransactionsRoutes} from './transactions/transactions.routes.config';
 
 import debug from 'debug';
 
@@ -46,7 +47,10 @@ app.use(helmet());
 
 //valid debug
 if (!process.env.DEBUG) {
-    loggerOptions.meta = false; // when not debugging, log requests as one-liners
+    loggerOptions.meta = false;
+    if (typeof global.it === 'function') {
+        loggerOptions.level = 'http'; 
+    }
 }
 
 // implement logs
@@ -56,6 +60,8 @@ app.use(expressWinston.logger(loggerOptions));
 routes.push(new UsersRoutes(app));
 routes.push(new AuthRoutes(app));
 routes.push(new ProductsRoutes(app));
+routes.push(new TransactionsRoutes(app));
+
 
 // test status
 const runningMessage = `Server running at http://localhost:${port}`;
@@ -63,7 +69,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(runningMessage)
 });
 
-server.listen(port, () => {
+export default server.listen(port, () => {
     routes.forEach((route: CommonRoutesConfig) => {
         debugLog(`Routes configured for ${route.getName()}`);
     });
