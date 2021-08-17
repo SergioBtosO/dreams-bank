@@ -18,6 +18,10 @@ class UsersDao {
         firstName: String,
         lastName: String,
         permissionFlags: Number,
+        products:[{
+            ref: "Products",
+            type: String
+        }],
     }, { id: false });
 
     User = mongooseService.getMongoose().model('Users', this.userSchema);
@@ -46,7 +50,7 @@ class UsersDao {
     }
     
     async getUserById(userId: string) {
-        return this.User.findOne({ _id: userId }).populate('User').exec();
+        return this.User.findOne({ _id: userId }).populate('products').exec();
     }
     
     async getUserByIdentification(identification: string) {

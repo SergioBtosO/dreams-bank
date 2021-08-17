@@ -63,6 +63,7 @@ class JwtMiddleware {
                         authorization[1],
                         jwtSecret
                     ) as Jwt;
+                    console.log("res.locals.jwt",res.locals.jwt)
                     next();
                 }
             } catch (err) {

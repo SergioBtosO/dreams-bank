@@ -11,6 +11,8 @@ class AuthMiddleware {
         const user: any = await usersService.getUserByIdentificationWithPassword(
             req.body.identification
         );
+
+        
         if (user) {
             const passwordHash = user.password;
             if (await argon2.verify(passwordHash, req.body.password)) {
@@ -18,6 +20,8 @@ class AuthMiddleware {
                     userId: user._id,
                     identification: user.identification,
                 };
+
+                //console.log(req.body);
                 return next();
             }
         }

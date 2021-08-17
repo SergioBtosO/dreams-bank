@@ -36,6 +36,7 @@ class UsersService implements CRUD {
     async getUserByIdentificationWithPassword(identification: string) {
         return UsersDao.getUserByIdentificationWithPassword(identification);
     }
+
 }
 
 export default new UsersService();

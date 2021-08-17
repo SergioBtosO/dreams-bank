@@ -1,6 +1,7 @@
 import { CommonRoutesConfig } from '../common/common.routes.config';
 import UsersController from './controllers/users.controller';
 import UsersMiddleware from './middleware/users.middleware';
+import jwtMiddleware from '../auth/middleware/jwt.middleware';
 import express from 'express';
 import BodyValidationMiddleware from '../common/middleware/body.validation.middleware';
 import { body } from 'express-validator';
@@ -13,7 +14,10 @@ export class UsersRoutes extends CommonRoutesConfig {
     configureRoutes() {
         this.app
             .route(`/users`)
-            .get(UsersController.listUsers)
+            .get(
+                jwtMiddleware.validJWTNeeded,
+                UsersController.listUsers
+            )
             .post(
                 body('password')
                     .isLength({ min: 5 })
@@ -26,7 +30,10 @@ export class UsersRoutes extends CommonRoutesConfig {
         this.app.param(`userId`, UsersMiddleware.extractUserId);
         this.app
             .route(`/users/:userId`)
-            .all(UsersMiddleware.validateUserExists)
+            .all(
+                jwtMiddleware.validJWTNeeded,
+                UsersMiddleware.validateUserExists
+                )
             .get(UsersController.getUserById)
             .delete(UsersController.removeUser);
 

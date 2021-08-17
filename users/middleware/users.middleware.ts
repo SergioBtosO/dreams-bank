@@ -45,7 +45,6 @@ class UsersMiddleware {
         }
     }
 
-    // Here we need to use an arrow function to bind `this` correctly
     validatePatchIdentification = async (
         req: express.Request,
         res: express.Response,

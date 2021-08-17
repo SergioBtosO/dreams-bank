@@ -13,6 +13,7 @@ class AuthController {
     async createJWT(req: express.Request, res: express.Response) {
         try {
             const refreshId = req.body.userId + jwtSecret;
+            //console.log("refreshId:",refreshId)
             const salt = crypto.createSecretKey(crypto.randomBytes(16));
             const hash = crypto
                 .createHmac('sha512', salt)
