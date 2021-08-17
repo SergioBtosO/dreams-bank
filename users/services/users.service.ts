@@ -1,11 +1,14 @@
 import UsersDao from '../daos/users.dao';
-import { CRUD } from '../../common/interfaces/crud.interface';
-import { CreateUserDto } from '../dto/create.user.dto';
-import { PutUserDto } from '../dto/put.user.dto';
-import { PatchUserDto } from '../dto/patch.user.dto';
+import { ICRUD } from '../../common/interfaces/crud.interface';
+import { ICreateUserDto } from '../dto/create.user.dto';
+import { IPutUserDto } from '../dto/put.user.dto';
+import { IPatchUserDto } from '../dto/patch.user.dto';
+import debug from 'debug';
 
-class UsersService implements CRUD {
-    async create(resource: CreateUserDto) {
+const log: debug.IDebugger = debug('app:users-service');
+
+class UsersService implements ICRUD {
+    async create(resource: ICreateUserDto) {
         return UsersDao.addUser(resource);
     }
 
@@ -17,7 +20,7 @@ class UsersService implements CRUD {
         return UsersDao.getUsers(limit, page)
     }
 
-    async patchById(id: string, resource: PatchUserDto) {
+    async patchById(id: string, resource: IPatchUserDto) {
         return UsersDao.updateUserById(id, resource);
     }
 
@@ -25,7 +28,7 @@ class UsersService implements CRUD {
         return UsersDao.getUserById(id);
     }
 
-    async putById(id: string, resource: PutUserDto) {
+    async putById(id: string, resource: IPutUserDto) {
         return UsersDao.updateUserById(id, resource);
     }
 

@@ -1,3 +1,3 @@
-import { PutUserDto } from './put.user.dto';
+import { IPutUserDto } from './put.user.dto';
 
-export interface PatchUserDto extends Partial<PutUserDto> {}
+export interface IPatchUserDto extends Partial<IPutUserDto> {}

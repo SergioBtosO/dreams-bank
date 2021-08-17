@@ -1,11 +1,14 @@
 import ProductsDao from '../daos/products.dao';
-import { CRUD } from '../../common/interfaces/crud.interface';
-import { CreateProductDto } from '../dto/create.product.dto';
-import { PatchProductDto } from '../dto/patch.product.dto';
-import { PutProductDto } from '../dto/put.product.dto';
+import { ICRUD } from '../../common/interfaces/crud.interface';
+import { ICreateProductDto } from '../dto/create.product.dto';
+import { IPatchProductDto } from '../dto/patch.product.dto';
+import { IPutProductDto } from '../dto/put.product.dto';
+import {debug} from 'debug';
 
-class ProductsService implements CRUD {
-    async create(resource: CreateProductDto) {
+const log: debug.IDebugger = debug('app:products-service');
+
+class ProductsService implements ICRUD {
+    async create(resource: ICreateProductDto) {
         return ProductsDao.addProduct(resource);
     }
 
@@ -17,7 +20,7 @@ class ProductsService implements CRUD {
         return ProductsDao.getProducts(limit, page)
     }
 
-    async patchById(id: string, resource: PatchProductDto) {
+    async patchById(id: string, resource: IPatchProductDto) {
         return ProductsDao.updateProductById(id, resource);
     }
 
@@ -25,7 +28,7 @@ class ProductsService implements CRUD {
         return ProductsDao.getProductById(id);
     }
 
-    async putById(id: string, resource: PutProductDto) {
+    async putById(id: string, resource: IPutProductDto) {
         return ProductsDao.updateProductById(id, resource);
     }
 

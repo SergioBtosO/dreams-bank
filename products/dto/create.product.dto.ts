@@ -1,4 +1,4 @@
-export interface CreateProductDto {
+export interface ICreateProductDto {
     owner: string;
     typeProduct: string;
     balance?:number;

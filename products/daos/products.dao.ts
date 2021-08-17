@@ -1,12 +1,12 @@
-import { CreateProductDto } from '../dto/create.product.dto';
-import { PatchProductDto } from '../dto/patch.product.dto';
-import { PutProductDto } from '../dto/put.product.dto';
+import { ICreateProductDto } from '../dto/create.product.dto';
+import { IPatchProductDto } from '../dto/patch.product.dto';
+import { IPutProductDto } from '../dto/put.product.dto';
 import mongooseService from '../../common/services/mongoose.service';
 import shortid from 'shortid';
 import debug from 'debug';
 
 
-const log: debug.IDebugger = debug('app:in-memory-dao');
+const log: debug.IDebugger = debug('app:products-in-memory-dao');
 
 class ProductsDao{
 
@@ -33,7 +33,7 @@ class ProductsDao{
     }
 
     //create
-    async addProduct(productFields: CreateProductDto) {
+    async addProduct(productFields: ICreateProductDto) {
         const productId = shortid.generate();
         const product = new this.Product({
             _id: productId,
@@ -52,13 +52,13 @@ class ProductsDao{
     }
 
     async getProductById(ProductId: string) {
-        return this.Product.findOne({ _id: ProductId}).populate('owner').exec();
+        return this.Product.findOne({ _id: ProductId}).populate({path:'owner',select:'_id identification'}).exec();
     }
 
     //update
     async updateProductById(
         productId: string,
-        productFields: PatchProductDto | PutProductDto
+        productFields: IPatchProductDto | IPutProductDto
     ) {
         const existingProduct = await this.Product.findOneAndUpdate(
             { _id: productId },

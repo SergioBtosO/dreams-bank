@@ -1,4 +1,4 @@
-export interface PutUserDto {
+export interface IPutUserDto {
     identification:number;
     password: string;
     firstName: string;

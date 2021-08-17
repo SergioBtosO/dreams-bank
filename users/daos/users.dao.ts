@@ -1,6 +1,6 @@
-import { CreateUserDto } from '../dto/create.user.dto';
-import { PatchUserDto } from '../dto/patch.user.dto';
-import { PutUserDto } from '../dto/put.user.dto';
+import { ICreateUserDto } from '../dto/create.user.dto';
+import { IPatchUserDto } from '../dto/patch.user.dto';
+import { IPutUserDto } from '../dto/put.user.dto';
 import mongooseService from '../../common/services/mongoose.service';
 import shortid from 'shortid';
 import debug from 'debug';
@@ -31,7 +31,7 @@ class UsersDao {
     }
 
     //create
-    async addUser(userFields: CreateUserDto) {
+    async addUser(userFields: ICreateUserDto) {
         const userId = shortid.generate();
         const user = new this.User({
             _id: userId,
@@ -67,7 +67,7 @@ class UsersDao {
     //update
     async updateUserById(
         userId: string,
-        userFields: PatchUserDto | PutUserDto
+        userFields: IPatchUserDto | IPutUserDto
     ) {
         const existingUser = await this.User.findOneAndUpdate(
             { _id: userId },

@@ -1,4 +1,4 @@
-export interface PutProductDto {
+export interface IPutProductDto {
     owner: string;
     typeProduct: string;
     balance:number;

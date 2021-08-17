@@ -12,7 +12,7 @@ class ProductsController {
     }
 
     async getById(req: express.Request, res: express.Response) {
-        const product = await productsService.readById(req.body.productId);
+        const product = await productsService.readById(req.body.id);
         res.status(200).send(product);
     }
 

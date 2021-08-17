@@ -1,3 +1,3 @@
-import { PutProductDto } from './put.product.dto';
+import { IPutProductDto } from './put.product.dto';
 
-export interface PatchProductDto extends Partial<PutProductDto> {}
+export interface IPatchProductDto extends Partial<IPutProductDto> {}

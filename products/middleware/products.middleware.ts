@@ -70,6 +70,7 @@ class ProductsMiddleware {
         res: express.Response,
         next: express.NextFunction
     ) {
+        console.log("req.body",req.body)
         req.body.id = req.params.productId;
         next();
     }
